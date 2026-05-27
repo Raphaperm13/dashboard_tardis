@@ -2,140 +2,227 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    /* Optimisation stricte pour mobile (empêche le zoom accidentel) */
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Projet TARDIS - Accueil</title>
     <style>
-        /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* =========================================
+           RESET & PARAMÈTRES MOBILES
+           ========================================= */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            /* Supprime l'horrible surbrillance bleue au clic sur Android/iOS */
+            -webkit-tap-highlight-color: transparent; 
         }
 
-        /* --- Styles de base --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Remplacement de la couleur unie par un dégradé radial élégant */
-            background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
-            color: white;
+            background-color: #020617; /* Bleu nuit presque noir */
+            color: #ffffff;
+            /* 100dvh s'adapte parfaitement même avec la barre d'adresse du navigateur mobile */
+            height: 100dvh; 
+            overflow: hidden; /* Empêche le défilement */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            /* Empêche le défilement horizontal */
-            overflow-x: hidden; 
-        }
-
-        /* --- Typographie --- */
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
-            animation: fadeIn 0.8s ease-out;
-            padding: 0 15px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            color: #a8b2d1;
-            max-width: 600px;
-            padding: 0 20px;
-            animation: fadeIn 1s ease-out;
-            line-height: 1.5;
-        }
-
-        /* --- Conteneur des boutons --- */
-        .button-container {
-            display: flex;
-            gap: 20px;
-            animation: fadeIn 1.2s ease-out;
-        }
-
-        /* --- Style général des boutons --- */
-        .btn {
-            text-decoration: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: white;
-            border-radius: 12px; /* Bords légèrement plus arrondis pour le mobile */
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* Bouton Dashboard (Plein) */
-        .btn-dashboard {
-            background-color: #3498db;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-        .btn-dashboard:hover {
-            background-color: #2980b9;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
-        }
-
-        /* Bouton Article (Contour) */
-        .btn-article {
-            background-color: rgba(52, 152, 219, 0.05); /* Léger fond transparent */
-            border: 2px solid #3498db;
-            color: #3498db;
-        }
-        .btn-article:hover {
-            background-color: #3498db;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            position: relative;
         }
 
         /* =========================================
-           RESPONSIVE DESIGN (POUR TÉLÉPHONES)
+           ANIMATIONS THEMATIQUES (VORTEX / SNCF)
            ========================================= */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem; /* Texte plus petit */
-                margin-top: -20px;
-            }
+        
+        /* 1. Conteneur du Vortex (Arrière-plan) */
+        .vortex-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        }
 
-            p {
-                font-size: 1rem;
-                margin-bottom: 30px;
-            }
+        /* 2. Lignes de vitesse (TGV à la vitesse de la lumière) */
+        .light-trail {
+            position: absolute;
+            width: 2px;
+            height: 120px;
+            background: linear-gradient(to bottom, rgba(56, 189, 248, 0), rgba(56, 189, 248, 0.8));
+            opacity: 0;
+            animation: speedTrail 2s linear infinite;
+        }
 
-            .button-container {
-                flex-direction: column; /* Empile les boutons à la verticale */
-                width: 85%; /* Prend 85% de la largeur de l'écran */
-                max-width: 350px;
-                gap: 15px; /* Espacement un peu réduit */
-            }
+        /* Répartition aléatoire des lignes sur l'écran */
+        .trail-1 { left: 15%; animation-delay: 0.1s; animation-duration: 1.2s; }
+        .trail-2 { left: 35%; animation-delay: 0.6s; animation-duration: 1.5s; height: 160px; }
+        .trail-3 { left: 50%; animation-delay: 0.3s; animation-duration: 1.1s; }
+        .trail-4 { left: 75%; animation-delay: 0.9s; animation-duration: 1.8s; height: 90px; }
+        .trail-5 { left: 85%; animation-delay: 0.4s; animation-duration: 1.3s; }
 
-            .btn {
-                width: 100%; /* Les boutons prennent toute la largeur dispo */
-                padding: 16px 20px; /* Plus haut pour être facile à cliquer */
-            }
+        @keyframes speedTrail {
+            0% { transform: translateY(-150px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* 3. Apparition Cinématique de l'interface */
+        @keyframes cinematicEnter {
+            0% { opacity: 0; transform: scale(0.9) translateY(40px); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        /* 4. Néon pulsant du TARDIS */
+        @keyframes tardisPulse {
+            0%, 100% { text-shadow: 0 0 10px #38bdf8, 0 0 20px #0284c7; }
+            50% { text-shadow: 0 0 20px #38bdf8, 0 0 40px #38bdf8, 0 0 60px #0284c7; }
+        }
+
+        /* 5. Rotation du rayon radar du bouton */
+        @keyframes spinRadar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* =========================================
+           INTERFACE (PREMIER PLAN)
+           ========================================= */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 88%; /* Parfait pour mobile */
+            animation: cinematicEnter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            animation: tardisPulse 3s infinite alternate;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 45px;
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           BOUTONS OPTIMISÉS TACTILES
+           ========================================= */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .btn {
+            position: relative;
+            width: 100%;
+            padding: 18px 20px; /* Grande zone de clic pour les pouces */
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            /* Effet verre dépoli */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); 
+            overflow: hidden;
+            transition: all 0.15s ease-out; /* Transition très rapide pour le touch */
+        }
+
+        /* --- Bouton Dashboard avec animation Radar/Vortex --- */
+        .btn-dashboard {
+            border: none;
+            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Le rayon qui tourne autour */
+        .btn-dashboard::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 300%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #38bdf8 100%);
+            animation: spinRadar 3s linear infinite;
+            z-index: -1;
+        }
+        
+        /* Le fond intérieur du bouton pour masquer le centre du rayon */
+        .btn-dashboard::after {
+            content: '';
+            position: absolute;
+            inset: 2px; /* Laisse juste 2px de bordure animée visible */
+            background: #0f172a;
+            border-radius: 14px;
+            z-index: -1;
+        }
+
+        /* --- Bouton Article --- */
+        .btn-article {
+            border: 2px solid rgba(56, 189, 248, 0.3);
+        }
+
+        /* --- Réaction ultra-satisfaisante au doigt --- */
+        .btn:active {
+            transform: scale(0.92); /* Le bouton s'enfonce beaucoup */
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+        }
+        .btn-dashboard:active::after {
+            background: #0ea5e9; /* Le fond s'allume en bleu quand on appuie */
+        }
+
+        .icon {
+            font-size: 1.4rem;
         }
     </style>
 </head>
 <body>
 
-    <h1>🚀 Projet TARDIS</h1>
-    <p>Explorez les données temporelles de la SNCF grâce à notre modèle prédictif.</p>
+    <!-- Arrière-plan Vortex Temporel / Rails SNCF -->
+    <div class="vortex-container">
+        <div class="light-trail trail-1"></div>
+        <div class="light-trail trail-2"></div>
+        <div class="light-trail trail-3"></div>
+        <div class="light-trail trail-4"></div>
+        <div class="light-trail trail-5"></div>
+    </div>
 
-    <div class="button-container">
-        <a href="https://dashboardtardis.streamlit.app/" class="btn btn-dashboard" target="_blank">
-            📊 Accéder au Dashboard
-        </a>
-        
-        <a href="article.html" class="btn btn-article">
-            📝 Lire l'Article
-        </a>
+    <!-- Contenu Principal -->
+    <div class="content-wrapper">
+        <h1>TARDIS</h1>
+        <p>Voyagez à travers les données temporelles de la SNCF grâce à notre modèle prédictif.</p>
+
+        <div class="button-container">
+            <a href="https://dashboardtardis.streamlit.app/" class="btn btn-dashboard" target="_blank">
+                <span class="icon">🚀</span> Lancer le Dashboard
+            </a>
+            
+            <a href="article.html" class="btn btn-article">
+                <span class="icon">📝</span> Lire l'Article
+            </a>
+        </div>
     </div>
 
 </body>
