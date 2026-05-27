@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Projet TARDIS - Accueil</title>
     <style>
-        /* =========================================
-           RESET & PARAMÈTRES MOBILES
-           ========================================= */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
@@ -65,6 +62,7 @@
 
         /* --- Boutons --- */
         .button-container { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+        
         .btn {
             position: relative; width: 100%; padding: 18px 20px; font-size: 1.15rem;
             font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: white;
@@ -73,6 +71,7 @@
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow: hidden;
             transition: all 0.15s ease-out; cursor: pointer;
         }
+        
         .btn-dashboard { border: none; box-shadow: 0 10px 30px rgba(2, 132, 199, 0.3); }
         .btn-dashboard::before {
             content: ''; position: absolute; width: 150%; height: 300%;
@@ -81,84 +80,14 @@
         }
         @keyframes spinRadar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .btn-dashboard::after { content: ''; position: absolute; inset: 2px; background: #0f172a; border-radius: 14px; z-index: -1; }
+        
         .btn-article { border: 2px solid rgba(56, 189, 248, 0.3); }
         .btn:active { transform: scale(0.92); box-shadow: 0 0 25px rgba(56, 189, 248, 0.6); }
-
-        /* =========================================
-           ANIMATION D'IMPACT (LE TRAIN VECTORIEL)
-           ========================================= */
-        
-        #svg-train {
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 150px; height: 150px;
-            transform: translate(-50%, -50%) scale(0.01);
-            z-index: 9998;
-            pointer-events: none;
-            opacity: 0;
-            filter: drop-shadow(0 0 10px #38bdf8);
-        }
-
-        #flash-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #ffffff 0%, #38bdf8 100%);
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        /* --- CLASSES AJOUTÉES PAR JAVASCRIPT --- */
-        
-        /* 1. Le train qui fonce (Plus rapide : 0.8s) */
-        .train-attack {
-            animation: rushSVG 0.8s cubic-bezier(0.8, 0, 1, 1) forwards !important;
-        }
-        @keyframes rushSVG {
-            0% { transform: translate(-50%, -50%) scale(0.01) translateY(-50px); opacity: 0; }
-            30% { opacity: 1; filter: drop-shadow(0 0 15px #38bdf8); }
-            100% { transform: translate(-50%, -50%) scale(40) translateY(10px); opacity: 1; filter: drop-shadow(0 0 100px #38bdf8); }
-        }
-
-        /* 2. Le tremblement de l'interface (Diminué) */
-        .screen-shake {
-            animation: shake 0.2s ease-in-out infinite alternate !important;
-        }
-        @keyframes shake {
-            0% { transform: translate(0px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -1px) rotate(-0.5deg); }
-            20% { transform: translate(-2px, 0px) rotate(0.5deg); }
-            30% { transform: translate(1px, 1px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(0.5deg); }
-            50% { transform: translate(-1px, 1px) rotate(-0.5deg); }
-            60% { transform: translate(-1px, 0px) rotate(0deg); }
-            70% { transform: translate(2px, 1px) rotate(-0.5deg); }
-            80% { transform: translate(-1px, -1px) rotate(0.5deg); }
-            90% { transform: translate(1px, 1px) rotate(0deg); }
-            100% { transform: translate(1px, -1px) rotate(-0.5deg); }
-        }
-
-        /* 3. L'accélération temporelle du fond */
-        .warp-speed .light-trail {
-            animation-duration: 0.1s !important; /* Très rapide */
-            width: 4px;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-        }
-
-        /* 4. Le flash final (Sec et Instantané) */
-        .flash-boom {
-            animation: explodeFlash 0.8s linear forwards;
-        }
-        @keyframes explodeFlash {
-            0% { opacity: 0; }
-            85% { opacity: 0; } /* Invisible jusqu'à la fin */
-            95% { opacity: 1; } /* Flash fulgurant */
-            100% { opacity: 1; }
-        }
     </style>
 </head>
 <body>
 
-    <div class="vortex-container" id="vortex">
+    <div class="vortex-container">
         <div class="light-trail trail-1"></div>
         <div class="light-trail trail-2"></div>
         <div class="light-trail trail-3"></div>
@@ -166,57 +95,12 @@
         <div class="light-trail trail-5"></div>
     </div>
 
-    <svg id="svg-train" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur1" />
-                <feGaussianBlur stdDeviation="6" result="blur2" />
-                <feMerge>
-                    <feMergeNode in="blur2" />
-                    <feMergeNode in="blur1" />
-                    <feMergeNode in="SourceGraphic" />
-                </feMerge>
-            </filter>
-            
-            <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#0f172a"/>
-                <stop offset="25%" stop-color="#334155"/>
-                <stop offset="50%" stop-color="#64748b"/>
-                <stop offset="75%" stop-color="#334155"/>
-                <stop offset="100%" stop-color="#0f172a"/>
-            </linearGradient>
-            
-            <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#38bdf8"/>
-                <stop offset="100%" stop-color="#082f49"/>
-            </linearGradient>
-        </defs>
-
-        <ellipse cx="100" cy="185" rx="65" ry="12" fill="rgba(0,0,0,0.8)" filter="blur(5px)" />
-        <path d="M40,180 C40,180 20,90 60,30 C75,10 125,10 140,30 C180,90 160,180 160,180 Z" fill="url(#bodyGrad)" stroke="#020617" stroke-width="2"/>
-        <path d="M55,180 C55,180 40,100 68,45 C80,25 120,25 132,45 C160,100 145,180 145,180 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
-        <path d="M75,180 L75,130 L100,115 L125,130 L125,180 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="1" filter="url(#neonGlow)"/>
-        <path d="M68,95 C62,70 78,35 100,35 C122,35 138,70 132,95 C125,115 75,115 68,95 Z" fill="url(#glassGrad)" stroke="#7dd3fc" stroke-width="2" filter="url(#neonGlow)"/>
-        
-        <path d="M50,130 C45,100 65,50 65,50" fill="none" stroke="#38bdf8" stroke-width="2" filter="url(#neonGlow)" opacity="0.6"/>
-        <path d="M150,130 C155,100 135,50 135,50" fill="none" stroke="#38bdf8" stroke-width="2" filter="url(#neonGlow)" opacity="0.6"/>
-
-        <ellipse cx="60" cy="155" rx="10" ry="5" fill="#ffffff" filter="url(#neonGlow)" />
-        <ellipse cx="140" cy="155" rx="10" ry="5" fill="#ffffff" filter="url(#neonGlow)" />
-        <ellipse cx="45" cy="165" rx="6" ry="3" fill="#0ea5e9" filter="url(#neonGlow)" />
-        <ellipse cx="155" cy="165" rx="6" ry="3" fill="#0ea5e9" filter="url(#neonGlow)" />
-        <ellipse cx="85" cy="155" rx="4" ry="2" fill="#0ea5e9" filter="url(#neonGlow)" />
-        <ellipse cx="115" cy="155" rx="4" ry="2" fill="#0ea5e9" filter="url(#neonGlow)" />
-    </svg>
-
-    <div id="flash-overlay"></div>
-
-    <div class="content-wrapper" id="ui-content">
+    <div class="content-wrapper">
         <h1>TARDIS</h1>
         <p>Voyagez à travers les données temporelles de la SNCF grâce à notre modèle prédictif.</p>
 
         <div class="button-container">
-            <a href="https://dashboardtardis.streamlit.app/" id="btn-dash" class="btn btn-dashboard">
+            <a href="https://dashboardtardis.streamlit.app/" class="btn btn-dashboard">
                 <span class="icon">🚀</span> Lancer le Dashboard
             </a>
             <a href="article.html" class="btn btn-article">
@@ -225,27 +109,5 @@
         </div>
     </div>
 
-    <script>
-        const btnDash = document.getElementById('btn-dash');
-        const trainSvg = document.getElementById('svg-train');
-        const uiContent = document.getElementById('ui-content');
-        const vortex = document.getElementById('vortex');
-        const flash = document.getElementById('flash-overlay');
-
-        btnDash.addEventListener('click', function(event) {
-            event.preventDefault(); 
-            const link = this.href;
-
-            uiContent.classList.add('screen-shake');
-            vortex.classList.add('warp-speed');
-            trainSvg.classList.add('train-attack');
-            flash.classList.add('flash-boom');
-
-            // Redirection après 800ms (Pile au moment du flash)
-            setTimeout(() => {
-                window.location.href = link;
-            }, 800); 
-        });
-    </script>
 </body>
 </html>
