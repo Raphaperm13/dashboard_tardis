@@ -15,8 +15,6 @@
             background-color: #020617; color: #ffffff;
             height: 100dvh; overflow: hidden; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
-            /* Perspective nécessaire pour l'effet de recul (Force G) */
-            perspective: 1000px; 
         }
 
         /* =========================================
@@ -26,7 +24,6 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             overflow: hidden; z-index: 0;
             background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-            transition: background 0.8s ease-in;
         }
         .light-trail {
             position: absolute; width: 2px; height: 120px;
@@ -39,7 +36,6 @@
         .trail-3 { left: 50%; animation-delay: 0.3s; animation-duration: 1.1s; }
         .trail-4 { left: 75%; animation-delay: 0.9s; animation-duration: 1.8s; height: 90px; }
         .trail-5 { left: 85%; animation-delay: 0.4s; animation-duration: 1.3s; }
-        /* Quelques lignes supplémentaires pour l'hyper-vitesse */
         .trail-6 { left: 25%; animation-delay: 0.8s; animation-duration: 1.4s; height: 140px; }
         .trail-7 { left: 65%; animation-delay: 0.2s; animation-duration: 1.6s; }
 
@@ -56,8 +52,8 @@
             position: relative; z-index: 10; display: flex; flex-direction: column;
             align-items: center; width: 88%; 
             animation: cinematicEnter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            /* Permet la rotation 3D de l'interface */
-            transform-style: preserve-3d;
+            /* Centre l'origine du zoom au milieu de l'écran */
+            transform-origin: center center;
         }
         @keyframes cinematicEnter {
             0% { opacity: 0; transform: scale(0.9) translateY(40px); filter: blur(10px); }
@@ -99,50 +95,29 @@
         .btn:active { transform: scale(0.92); box-shadow: 0 0 25px rgba(56, 189, 248, 0.6); }
 
         /* =========================================
-           ANIMATION HYPER-VITESSE (DÉCLENCHÉE PAR JS)
+           NOUVELLE ANIMATION (DÉZOOM + GROS ZOOM RAPIDE)
            ========================================= */
 
-        /* 1. L'interface subit la Force G (Recule, s'incline et s'efface) */
-        .g-force-effect {
-            animation: gForceAnim 1.2s cubic-bezier(0.8, 0, 1, 1) forwards !important;
+        /* 1. L'interface fait un dézoom puis un zoom énorme vers la caméra */
+        .warp-zoom-active {
+            /* L'animation dure 0.95s, avec un effet élastique pour le dézoom */
+            animation: warpZoom 0.95s cubic-bezier(0.5, -0.3, 0.1, 1) forwards !important;
         }
-        @keyframes gForceAnim {
-            0% { transform: translateZ(0) rotateX(0deg); opacity: 1; filter: blur(0); }
-            /* Plaquage en arrière (Force G) */
-            30% { transform: translateZ(-100px) translateY(20px) rotateX(5deg); opacity: 0.9; filter: blur(1px); }
-            /* Désintégration lumineuse */
-            100% { transform: translateZ(-500px) translateY(100px) rotateX(15deg); opacity: 0; filter: blur(15px); }
+        @keyframes warpZoom {
+            0% { transform: scale(1); opacity: 1; filter: blur(0); }
+            /* Le dézoom (recul) */
+            35% { transform: scale(0.85); opacity: 1; filter: blur(0); }
+            /* Le zoom géant (fonce vers toi) */
+            100% { transform: scale(25); opacity: 0; filter: blur(15px); }
         }
 
-        /* 2. Les lumières s'étirent et accélèrent violemment */
+        /* 2. Les lumières s'accélèrent et deviennent beaucoup plus pétantes */
         .hyper-trails .light-trail {
-            animation: warpTrail 0.3s linear infinite !important;
-            width: 5px; /* Lignes plus épaisses */
-            background: linear-gradient(to bottom, transparent, #ffffff, #38bdf8);
-            box-shadow: 0 0 15px #38bdf8;
-        }
-        @keyframes warpTrail {
-            0% { transform: translateY(-300px) scaleY(1); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(150vh) scaleY(15); opacity: 0; } /* Étirement x15 */
-        }
-
-        /* 3. Le Flash aveuglant de l'hyper-espace */
-        .hyper-flash {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff;
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0;
-        }
-        .flash-active {
-            animation: flashBang 1.2s cubic-bezier(0.5, 0, 1, 1) forwards;
-        }
-        @keyframes flashBang {
-            0% { opacity: 0; background: #38bdf8; }
-            60% { opacity: 0; }
-            95% { opacity: 1; background: #ffffff; }
-            100% { opacity: 1; background: #ffffff; }
+            animation-duration: 0.25s !important; /* Tombent à toute vitesse */
+            /* Bleu cyan très vif */
+            background: linear-gradient(to bottom, transparent, #38bdf8) !important;
+            /* Lueur néon pétante autour du trait */
+            box-shadow: 0 0 15px #38bdf8, 0 0 30px #0284c7 !important;
         }
 
     </style>
@@ -158,8 +133,6 @@
         <div class="light-trail trail-6"></div>
         <div class="light-trail trail-7"></div>
     </div>
-
-    <div class="hyper-flash" id="flash"></div>
 
     <div class="content-wrapper" id="ui-content">
         <h1>TARDIS</h1>
@@ -179,26 +152,22 @@
         const btnDash = document.getElementById('btn-dash');
         const uiContent = document.getElementById('ui-content');
         const vortex = document.getElementById('vortex');
-        const flash = document.getElementById('flash');
 
         btnDash.addEventListener('click', function(event) {
-            // Empêche de changer de page instantanément
+            // Empêche le changement de page immédiat
             event.preventDefault(); 
             const link = this.href;
 
-            // 1. Déclenche l'effet de Force G sur l'interface
-            uiContent.classList.add('g-force-effect');
+            // 1. Lance l'animation de dézoom/zoom géant sur tout le bloc central
+            uiContent.classList.add('warp-zoom-active');
             
-            // 2. Déclenche l'étirement infini des lumières
+            // 2. Rend les lumières de fond plus pétantes et rapides
             vortex.classList.add('hyper-trails');
 
-            // 3. Prépare le flash final
-            flash.classList.add('flash-active');
-
-            // 4. Change de page exactement au moment où l'écran est tout blanc (1.1 secondes)
+            // 3. Change de page juste avant la fin du zoom (900ms)
             setTimeout(() => {
                 window.location.href = link;
-            }, 1100); 
+            }, 900); 
         });
     </script>
 </body>
