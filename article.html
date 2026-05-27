@@ -2,32 +2,286 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Le Figaro - Actualités</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>L'incroyable prouesse du projet TARDIS - Le Figaro</title>
     <style>
-        body { font-family: 'Times New Roman', serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
-        header { border-bottom: 3px solid #000; padding-bottom: 20px; margin-bottom: 30px; text-align: center; }
-        header h1 { font-size: 3em; text-transform: uppercase; margin: 0; }
-        .article-content { background: #fff; padding: 40px; border: 1px solid #ddd; }
-        .chapeau { font-weight: bold; font-size: 1.2em; margin-bottom: 20px; }
-        .btn-retour { display: inline-block; margin-top: 30px; padding: 10px 20px; background: #000; color: #fff; text-decoration: none; }
+        /* =========================================
+           RESET & PARAMÈTRES DE BASE
+           ========================================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            /* Typographie classique de presse (Georgia / Times) */
+            font-family: 'Georgia', serif; 
+            line-height: 1.6; 
+            color: #1a1a1a; 
+            background-color: #f9f9f9; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           EN-TÊTE TYPE "LE FIGARO"
+           ========================================= */
+        header { 
+            border-bottom: 4px solid #003366; 
+            padding: 15px 20px; 
+            text-align: center; 
+            background: #ffffff;
+        }
+        header h1 { 
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: -1px;
+            color: #003366; 
+            margin: 0; 
+        }
+        .subtitle {
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #666;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        /* =========================================
+           CORPS DE L'ARTICLE
+           ========================================= */
+        .article-content { 
+            padding: 25px 20px; 
+        }
+
+        .category {
+            display: inline-block;
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #c00000;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 2.2rem;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .chapeau { 
+            font-weight: bold; 
+            font-size: 1.25rem; 
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 25px; 
+        }
+
+        .article-meta {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #555;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 12px 0;
+            margin-bottom: 30px;
+        }
+        .article-meta strong { color: #000; }
+
+        .text-body p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /* =========================================
+           LA MISE EN AVANT DU SCORE R2
+           ========================================= */
+        .stat-box {
+            background: #f4f7f9;
+            border-left: 5px solid #003366;
+            padding: 20px;
+            margin: 35px 0;
+            position: relative;
+        }
+        .stat-box::before {
+            content: '«';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 4rem;
+            color: #003366;
+            opacity: 0.1;
+            font-family: serif;
+        }
+        .stat-number {
+            display: block;
+            font-family: Arial, sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #003366;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        .stat-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #444;
+        }
+
+        /* =========================================
+           SECTION DES AVIS TESTEURS
+           ========================================= */
+        .reviews-section {
+            margin-top: 50px;
+            border-top: 3px solid #000;
+            padding-top: 30px;
+        }
+        .reviews-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .review-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .review-author {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #003366;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .review-quote {
+            font-style: italic;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .profile-link {
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #003366;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #003366;
+            padding-bottom: 2px;
+        }
+        .profile-link:hover { color: #c00000; border-color: #c00000; }
+
+        /* =========================================
+           BOUTON DE RETOUR
+           ========================================= */
+        .btn-retour { 
+            display: block; 
+            margin: 40px auto 20px auto; 
+            padding: 15px 25px; 
+            background: #003366; 
+            color: #fff; 
+            text-decoration: none; 
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+        .btn-retour:hover { background: #001a33; }
+
+        /* =========================================
+           RESPONSIVE (MOBILE)
+           ========================================= */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2.2rem; }
+            .article-title { font-size: 1.8rem; }
+            .stat-number { font-size: 2.3rem; }
+        }
     </style>
 </head>
 <body>
-    <header><h1>LE FIGARO</h1></header>
-    <article class="article-content">
-        <h1>L'incroyable prouesse du projet TARDIS</h1>
-        <p><em>Publié le 27 mai 2026</em></p>
-        <p class="chapeau">C'est une avancée technologique majeure qui vient de voir le jour. Le projet TARDIS révolutionne l'analyse des données temporelles.</p>
-        <p>Les concepteurs ont réussi là où beaucoup avaient échoué, en créant un modèle capable d'anticiper les flux avec une précision chirurgicale.</p>
-        
-        <h2 style="margin-top: 50px; border-top: 2px solid #333; padding-top: 20px;">Ils ont testé le TARDIS</h2>
-        <p>Voici les retours de nos trois testeurs privilégiés :</p>
-        <ul>
-            <li><strong>Eliot</strong> : "Une interface fluide, une prédiction bluffante." <br><a href="eliot.html">Voir le profil</a></li>
-            <li><strong>Alexandre</strong> : "Indispensable pour quiconque manipule des données complexes." <br><a href="alexandre.html">Voir le profil</a></li>
-            <li><strong>Tom</strong> : "La rigueur mathématique alliée à une simplicité d'usage." <br><a href="tom.html">Voir le profil</a></li>
-        </ul>
-        <a href="index.html" class="btn-retour">Retour à l'accueil</a>
-    </article>
+
+    <div class="container">
+        <header>
+            <h1>LE FIGARO</h1>
+            <div class="subtitle">Édition Numérique • Tech & Data</div>
+        </header>
+
+        <article class="article-content">
+            <span class="category">Technologie & Transports</span>
+            <h1 class="article-title">L'incroyable prouesse du projet TARDIS : quand l'IA prédit les retards de la SNCF</h1>
+            
+            <p class="chapeau">
+                C'est une avancée technologique majeure qui vient de voir le jour. Le projet TARDIS révolutionne l'analyse des données temporelles en anticipant les flux ferroviaires avec une précision chirurgicale.
+            </p>
+
+            <div class="article-meta">
+                <span>Par <strong>Raphaël Permentier, Stan Gaumain & Côme Chaslerie</strong></span>
+                <span style="margin-top: 5px;">Publié le 28 mai 2026 à 08h00</span>
+            </div>
+            
+            <div class="text-body">
+                <p>
+                    Les concepteurs ont réussi là où beaucoup avaient échoué. Après avoir nettoyé et analysé d'immenses bases de données, l'équipe de recherche a mis au point un modèle de <em>Machine Learning</em> capable de comprendre et de prévoir pourquoi les trains arrivent en retard.
+                </p>
+                <p>
+                    En s'appuyant sur un algorithme de type <em>Random Forest</em> optimisé pendant des heures, le projet TARDIS ne se contente pas de faire des suppositions : il offre des résultats mesurables et impressionnants qui pourraient bien changer notre façon de voyager.
+                </p>
+                
+                <div class="stat-box">
+                    <span class="stat-number">80,43 %</span>
+                    <span class="stat-text">C'est le score R² (coefficient de détermination) atteint par le modèle TARDIS. Une fiabilité exceptionnelle qui prouve que plus de 80% des variations de retards sont désormais explicables et prévisibles par l'algorithme.</span>
+                </div>
+
+                <p>
+                    Le modèle, encapsulé dans un tableau de bord (Dashboard) interactif, permet de visualiser ces données en temps réel de manière extrêmement intuitive.
+                </p>
+            </div>
+            
+            <section class="reviews-section">
+                <h2>Ils ont testé le TARDIS</h2>
+                <p style="margin-bottom: 20px; font-family: Arial, sans-serif; color: #555;">Voici les retours de nos trois testeurs privilégiés ayant eu accès au Dashboard en avant-première :</p>
+                
+                <div class="review-card">
+                    <div class="review-author">Eliot</div>
+                    <p class="review-quote">« Une interface fluide, une prédiction bluffante. C'est exactement ce qu'il manquait pour anticiper nos trajets. »</p>
+                    <a href="eliot.html" class="profile-link">Voir le profil d'Eliot ➔</a>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-author">Alexandre</div>
+                    <p class="review-quote">« Un outil indispensable pour quiconque manipule des données complexes. La clarté des graphiques est remarquable. »</p>
+                    <a href="alexandre.html" class="profile-link">Voir le profil d'Alexandre ➔</a>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-author">Tom</div>
+                    <p class="review-quote">« La rigueur mathématique du Random Forest alliée à une simplicité d'usage absolue. Du grand art. »</p>
+                    <a href="tom.html" class="profile-link">Voir le profil de Tom ➔</a>
+                </div>
+            </section>
+
+            <a href="index.html" class="btn-retour">Retour à la page d'accueil</a>
+        </article>
+    </div>
+
 </body>
 </html>
