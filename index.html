@@ -5,65 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet TARDIS - Accueil</title>
     <style>
-        /* Styles de base pour rendre la page jolie */
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Styles de base --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0a192f; /* Bleu foncé style TARDIS/Espace */
+            /* Remplacement de la couleur unie par un dégradé radial élégant */
+            background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             text-align: center;
+            /* Empêche le défilement horizontal */
+            overflow-x: hidden; 
         }
 
+        /* --- Typographie --- */
         h1 {
             font-size: 3.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            text-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
+            animation: fadeIn 0.8s ease-out;
+            padding: 0 15px;
         }
 
         p {
             font-size: 1.2rem;
             margin-bottom: 40px;
-            color: #8892b0;
+            color: #a8b2d1;
+            max-width: 600px;
+            padding: 0 20px;
+            animation: fadeIn 1s ease-out;
+            line-height: 1.5;
         }
 
-        /* Conteneur des boutons */
+        /* --- Conteneur des boutons --- */
         .button-container {
             display: flex;
             gap: 20px;
+            animation: fadeIn 1.2s ease-out;
         }
 
-        /* Style général des boutons */
+        /* --- Style général des boutons --- */
         .btn {
             text-decoration: none;
             padding: 15px 35px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: white;
-            border-radius: 8px;
+            border-radius: 12px; /* Bords légèrement plus arrondis pour le mobile */
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 2px solid transparent;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         /* Bouton Dashboard (Plein) */
         .btn-dashboard {
             background-color: #3498db;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
         }
         .btn-dashboard:hover {
             background-color: #2980b9;
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
         }
 
         /* Bouton Article (Contour) */
         .btn-article {
-            background-color: transparent;
+            background-color: rgba(52, 152, 219, 0.05); /* Léger fond transparent */
             border: 2px solid #3498db;
             color: #3498db;
         }
@@ -71,7 +92,34 @@
             background-color: #3498db;
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN (POUR TÉLÉPHONES)
+           ========================================= */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem; /* Texte plus petit */
+                margin-top: -20px;
+            }
+
+            p {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+
+            .button-container {
+                flex-direction: column; /* Empile les boutons à la verticale */
+                width: 85%; /* Prend 85% de la largeur de l'écran */
+                max-width: 350px;
+                gap: 15px; /* Espacement un peu réduit */
+            }
+
+            .btn {
+                width: 100%; /* Les boutons prennent toute la largeur dispo */
+                padding: 16px 20px; /* Plus haut pour être facile à cliquer */
+            }
         }
     </style>
 </head>
@@ -81,12 +129,10 @@
     <p>Explorez les données temporelles de la SNCF grâce à notre modèle prédictif.</p>
 
     <div class="button-container">
-        <!-- Bouton qui renvoie vers ton tunnel Ngrok -->
         <a href="https://dashboardtardis.streamlit.app/" class="btn btn-dashboard" target="_blank">
             📊 Accéder au Dashboard
         </a>
         
-        <!-- Bouton qui renvoie vers la future page article -->
         <a href="article.html" class="btn btn-article">
             📝 Lire l'Article
         </a>
