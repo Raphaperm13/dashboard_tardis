@@ -1,0 +1,12 @@
+*
+
+!*/
+
+!*.ipynb
+!*.py
+!.gitignore
+!.github/workflows/*
+!.README
+!cleaned_dataset.csv
+!model.joblib
+!requirements.txt
