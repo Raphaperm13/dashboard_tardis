@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>L'incroyable prouesse du projet TARDIS - Le Figaro</title>
+    <title>Trois étudiants créent un outil révolutionnaire pour la SNCF - Le Figaro</title>
     <style>
         /* =========================================
            RESET & PARAMÈTRES DE BASE
@@ -11,7 +11,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
-            /* Typographie classique de presse (Georgia / Times) */
             font-family: 'Georgia', serif; 
             line-height: 1.6; 
             color: #1a1a1a; 
@@ -140,7 +139,7 @@
         }
 
         /* =========================================
-           SECTION DES AVIS TESTEURS
+           SECTION DES AVIS DIRECTEURS
            ========================================= */
         .reviews-section {
             margin-top: 50px;
@@ -160,16 +159,22 @@
             margin-bottom: 15px;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            border-left: 4px solid #c00000; /* Touche de rouge institutionnel */
         }
         .review-author {
             font-family: Arial, sans-serif;
             font-weight: bold;
             font-size: 1.1rem;
             color: #003366;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 2px;
+        }
+        .review-role {
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
         }
         .review-quote {
             font-style: italic;
@@ -222,60 +227,63 @@
     <div class="container">
         <header>
             <h1>LE FIGARO</h1>
-            <div class="subtitle">Édition Numérique • Tech & Data</div>
+            <div class="subtitle">Édition Numérique • Économie & Tech</div>
         </header>
 
         <article class="article-content">
-            <span class="category">Technologie & Transports</span>
-            <h1 class="article-title">L'incroyable prouesse du projet TARDIS : quand l'IA prédit les retards de la SNCF</h1>
+            <span class="category">Innovation Ferroviaire</span>
+            <h1 class="article-title">Comment trois étudiants ont créé l'outil qui va révolutionner la SNCF</h1>
             
             <p class="chapeau">
-                C'est une avancée technologique majeure qui vient de voir le jour. Le projet TARDIS révolutionne l'analyse des données temporelles en anticipant les flux ferroviaires avec une précision chirurgicale.
+                Ce qui a commencé comme un projet de recherche étudiant est en passe de devenir le nouveau standard industriel. Rencontre avec les concepteurs du "Projet TARDIS", l'algorithme qui prédit les retards des trains avec une précision inédite.
             </p>
 
             <div class="article-meta">
-                <span>Par <strong>Raphaël Permentier, Stan Gaumain & Côme Chaslerie</strong></span>
-                <span style="margin-top: 5px;">Publié le 28 mai 2026 à 08h00</span>
+                <span>Par <strong>La Rédaction Tech</strong></span>
+                <span style="margin-top: 5px;">Publié le 28 mai 2026 à 07h15</span>
             </div>
             
             <div class="text-body">
                 <p>
-                    Les concepteurs ont réussi là où beaucoup avaient échoué. Après avoir nettoyé et analysé d'immenses bases de données, l'équipe de recherche a mis au point un modèle de <em>Machine Learning</em> capable de comprendre et de prévoir pourquoi les trains arrivent en retard.
+                    C'est l'histoire d'un tour de force technologique. Raphaël Permentier, Stan Gaumain et Côme Chaslerie, trois jeunes prodiges de la Data Science, ont réussi là où des décennies d'ingénierie ferroviaire cherchaient encore la solution : modéliser et anticiper l'imprévisible.
                 </p>
                 <p>
-                    En s'appuyant sur un algorithme de type <em>Random Forest</em> optimisé pendant des heures, le projet TARDIS ne se contente pas de faire des suppositions : il offre des résultats mesurables et impressionnants qui pourraient bien changer notre façon de voyager.
+                    Leur création, baptisée <strong>Projet TARDIS</strong>, s'appuie sur le <em>Machine Learning</em> (notamment l'algorithme de <em>Random Forest</em>). Après avoir traité, nettoyé et décortiqué des années d'historiques de la SNCF, leur modèle est désormais capable de prévoir les retards des trains avant même qu'ils ne surviennent, le tout centralisé dans un tableau de bord ultra-ergonomique.
                 </p>
                 
                 <div class="stat-box">
                     <span class="stat-number">80,43 %</span>
-                    <span class="stat-text">C'est le score R² (coefficient de détermination) atteint par le modèle TARDIS. Une fiabilité exceptionnelle qui prouve que plus de 80% des variations de retards sont désormais explicables et prévisibles par l'algorithme.</span>
+                    <span class="stat-text">C'est le score de fiabilité (R²) atteint par le modèle conçu par les trois étudiants. Un chiffre vertigineux qui a immédiatement attiré l'attention des plus hautes sphères du transport ferroviaire français, surpassant les outils prédictifs actuels.</span>
                 </div>
 
                 <p>
-                    Le modèle, encapsulé dans un tableau de bord (Dashboard) interactif, permet de visualiser ces données en temps réel de manière extrêmement intuitive.
+                    Face à une telle performance mathématique, l'outil n'est pas passé inaperçu. La direction nationale de la SNCF a rapidement demandé un accès exclusif au <em>Dashboard</em> interactif de l'équipe pour le mettre à l'épreuve du terrain.
                 </p>
             </div>
             
             <section class="reviews-section">
-                <h2>Ils ont testé le TARDIS</h2>
-                <p style="margin-bottom: 20px; font-family: Arial, sans-serif; color: #555;">Voici les retours de nos trois testeurs privilégiés ayant eu accès au Dashboard en avant-première :</p>
+                <h2>L'état-major de la SNCF conquis</h2>
+                <p style="margin-bottom: 25px; font-family: Arial, sans-serif; color: #555;">La direction du groupe a pu tester l'outil en conditions réelles. Voici les retours exclusifs de la haute hiérarchie :</p>
                 
                 <div class="review-card">
+                    <div class="review-author">Tom</div>
+                    <span class="review-role">Directeur Général Principal de l'Innovation, SNCF</span>
+                    <p class="review-quote">« La rigueur mathématique de leur algorithme est d'une fiabilité absolue. Ce que Raphaël, Stan et Côme ont bâti avec le TARDIS dépasse de loin nos attentes industrielles. »</p>
+                    <a href="tom.html" class="profile-link">Consulter le profil ➔</a>
+                </div>
+
+                <div class="review-card">
                     <div class="review-author">Eliot</div>
-                    <p class="review-quote">« Une interface fluide, une prédiction bluffante. C'est exactement ce qu'il manquait pour anticiper nos trajets. »</p>
-                    <a href="eliot.html" class="profile-link">Voir le profil d'Eliot ➔</a>
+                    <span class="review-role">Directeur des Opérations du Réseau Ferroviaire</span>
+                    <p class="review-quote">« Une interface d'une fluidité exemplaire, et une prédiction bluffante. C'est très exactement l'outil stratégique qu'il manquait à nos équipes d'aiguillage sur le terrain. »</p>
+                    <a href="eliot.html" class="profile-link">Consulter le profil ➔</a>
                 </div>
 
                 <div class="review-card">
                     <div class="review-author">Alexandre</div>
-                    <p class="review-quote">« Un outil indispensable pour quiconque manipule des données complexes. La clarté des graphiques est remarquable. »</p>
-                    <a href="alexandre.html" class="profile-link">Voir le profil d'Alexandre ➔</a>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-author">Tom</div>
-                    <p class="review-quote">« La rigueur mathématique du Random Forest alliée à une simplicité d'usage absolue. Du grand art. »</p>
-                    <a href="tom.html" class="profile-link">Voir le profil de Tom ➔</a>
+                    <span class="review-role">Responsable Data & Stratégie</span>
+                    <p class="review-quote">« Réussir à vulgariser autant de données complexes dans un tableau de bord aussi clair, c'est un véritable tour de force. Indispensable pour notre prise de décision. »</p>
+                    <a href="alexandre.html" class="profile-link">Consulter le profil ➔</a>
                 </div>
             </section>
 
