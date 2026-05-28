@@ -1,9 +1,111 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><meta charset="UTF-8"><title>Profil d'Eliot</title>
-<style>body { font-family: sans-serif; text-align: center; padding: 50px; background: #0a192f; color: white; } .card { background: #112240; padding: 40px; border-radius: 15px; display: inline-block; }</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Profil d'Eliot - Projet TARDIS</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #020617;
+            color: #f8fafc; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card { 
+            background: #0f172a; 
+            border: 1px solid #1e293b;
+            padding: 40px 30px; 
+            border-radius: 20px; 
+            max-width: 450px;
+            width: 100%;
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            margin-bottom: 20px;
+        }
+
+        h1 { 
+            font-size: 2.2rem; 
+            font-weight: bold;
+            margin-bottom: 5px; 
+            color: #ffffff;
+        }
+
+        .role {
+            font-size: 1rem;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .bio {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .btn-retour {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            text-decoration: none;
+            border: 1px solid #38bdf8;
+            border-radius: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-retour:hover {
+            background: #38bdf8;
+            color: #020617;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+    </style>
 </head>
 <body>
-    <div class="card"><h1>Eliot</h1><p>Testeur expert et fervent partisan du projet TARDIS.</p><br><a href="article.html" style="color: #3498db;">Retour à l'article</a></div>
+
+    <div class="card">
+        <img src="eliot.jpg" alt="Portrait d'Eliot" class="profile-img">
+        
+        <h1>Eliot</h1>
+        <span class="role">Directeur des Opérations du Réseau Ferroviaire, SNCF</span>
+        
+        <p class="bio">
+            Un homme de terrain avant tout. Eliot supervise l'aiguillage, la logistique et l'ensemble du trafic ferroviaire. Grâce aux prédictions algorithmiques de l'outil TARDIS, il peut désormais anticiper les perturbations du réseau et permettre à ses équipes de réagir avec une agilité inédite.
+        </p>
+        
+        <a href="article.html" class="btn-retour">Retour à l'article</a>
+    </div>
+
 </body>
 </html>
