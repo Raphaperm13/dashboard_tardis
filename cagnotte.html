@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutien au Projet TARDIS</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #020617; color: #ffffff;
+            display: flex; flex-direction: column; align-items: center; padding: 40px 20px;
+        }
+
+        .container { max-width: 500px; width: 100%; text-align: center; }
+
+        h1 { font-size: 2.5rem; margin-bottom: 20px; color: #fbbf24; }
+        p { color: #94a3b8; margin-bottom: 30px; }
+
+        /* Bouton Cagnotte */
+        .btn-donate {
+            display: inline-block; padding: 20px 40px; background: #fbbf24;
+            color: #020617; font-weight: 800; text-transform: uppercase;
+            text-decoration: none; border-radius: 12px; font-size: 1.2rem;
+            transition: transform 0.2s; margin-bottom: 50px;
+        }
+        .btn-donate:hover { transform: scale(1.05); }
+
+        /* Classement */
+        .leaderboard { 
+            background: rgba(15, 23, 42, 0.7); border: 1px solid #1e293b;
+            padding: 20px; border-radius: 16px; width: 100%;
+        }
+        .leaderboard h2 { margin-bottom: 20px; font-size: 1.4rem; }
+        .rank-item {
+            display: flex; justify-content: space-between; padding: 12px 0;
+            border-bottom: 1px solid #1e293b; font-size: 1.1rem;
+        }
+        .rank-item:last-child { border: none; }
+        .name { color: #38bdf8; }
+        .amount { font-weight: bold; }
+
+        .btn-back { margin-top: 30px; color: #94a3b8; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Soutenez TARDIS</h1>
+        <p>Contribuez à l'évolution de notre outil d'analyse prédictive ferroviaire.</p>
+        
+        <!-- Remplace le lien par le vrai lien de ta cagnotte -->
+        <a href="https://www.leetchi.com/fr/cagnotte/..." class="btn-donate">Accéder à la Cagnotte</a>
+
+        <div class="leaderboard">
+            <h2>🏆 Top Donateurs</h2>
+            <div class="rank-item"><span class="name">1. Alexandre</span> <span class="amount">50€</span></div>
+            <div class="rank-item"><span class="name">2. Tom</span> <span class="amount">30€</span></div>
+            <div class="rank-item"><span class="name">3. Eliot</span> <span class="amount">20€</span></div>
+        </div>
+
+        <a href="index.html" class="btn-back">← Retour à l'accueil</a>
+    </div>
+
+</body>
+</html>
